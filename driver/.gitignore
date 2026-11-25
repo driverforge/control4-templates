@@ -1,0 +1,6 @@
+/dist
+.DS_Store
+/.idea
+/luarocks
+/lua_modules
+/.luarocks

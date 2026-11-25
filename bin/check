@@ -1,0 +1,33 @@
+#!/bin/sh
+# Creates a project from every template and builds it — what CI runs.
+#
+#   ./bin/check            every template
+#   ./bin/check driver     one template
+#
+# Needs the driverforge CLI on PATH. `driverforge new` clones, so the templates
+# are read from the last commit, not the working tree: commit before checking.
+set -eu
+
+root=$(cd "$(dirname "$0")/.." && pwd)
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+
+if [ "$#" -gt 0 ]; then
+  names="$*"
+else
+  names=$(cd "$root" && for f in */template.json; do dirname "$f"; done)
+fi
+
+[ -n "$names" ] || { echo "no templates found" >&2; exit 1; }
+
+for name in $names; do
+  echo "--- $name"
+  [ -f "$root/$name/template.json" ] || { echo "$name has no template.json" >&2; exit 1; }
+
+  driverforge new "$work/$name" --repo "file://$root" --template "$name" --no-init --no-tui
+  driverforge build --project-dir "$work/$name" --no-tui
+
+  ls "$work/$name"/dist/*.c4z >/dev/null 2>&1 || { echo "$name built no .c4z" >&2; exit 1; }
+done
+
+echo "all templates build"

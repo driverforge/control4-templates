@@ -1,0 +1,43 @@
+<devicedata>
+  <copyright>Copyright ${year}</copyright>
+  <creator>${creator}</creator>
+  <manufacturer>${manufacturer}</manufacturer>
+  <name>${id}</name>
+  <model>${title}</model>
+  <modified>1/1/1970 00:00:00 AM</modified>
+  <version>000001</version>
+  <small>devices_sm/c4.gif</small>
+  <large>devices_lg/c4.gif</large>
+  <control>lua_gen</control>
+  <controlmethod>ip</controlmethod>
+  <driver>DriverWorks</driver>
+  <combo>true</combo>
+  <config>
+    <script jit="1" file="driver.lua"/>
+    <documentation file="www/documentation.html"/>
+    <actions>
+      <action>
+        <name>Say Hello</name>
+        <command>SAY_HELLO</command>
+      </action>
+    </actions>
+    <properties>
+      <property>
+        <name>Driver Version</name>
+        <type>STRING</type>
+        <default/>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Log Mode</name>
+        <type>LIST</type>
+        <default>Print</default>
+        <readonly>false</readonly>
+        <items>
+          <item>Off</item>
+          <item>Print</item>
+        </items>
+      </property>
+    </properties>
+  </config>
+</devicedata>

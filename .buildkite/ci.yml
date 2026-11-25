@@ -1,0 +1,23 @@
+# CI for the Driverforge Control4 templates.
+#
+# Runs on every pull request, including those from forks: each template is
+# created with `driverforge new` and the result is built.
+#
+# Reproduce it locally — the command is the one CI runs:
+#
+#   ./bin/check
+
+agents:
+  queue: linux-small-public
+
+steps:
+  - label: ':hammer: Create and build each template'
+    key: check
+    notify:
+      - github_commit_status:
+          context: buildkite/check
+    timeout_in_minutes: 15
+    plugins:
+      - github.com/driverforge/driverforge-buildkite-plugin#v1.2.0:
+          version: latest
+    command: ./bin/check

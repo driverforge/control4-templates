@@ -1,0 +1,13 @@
+{
+  "description": "A minimal Control4 driver: loads, logs, and handles properties and commands",
+  "variables": {
+    "manufacturer": {
+      "description": "Manufacturer shown in Composer",
+      "default": "Custom"
+    },
+    "creator": {
+      "description": "Author shown in Composer (your name or company)",
+      "default": ""
+    }
+  }
+}
